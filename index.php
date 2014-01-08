@@ -14,7 +14,12 @@ and open the template in the editor.
         
 	$rss = new DOMDocument();
 	$rss->load('http://agilmotoboy.com.br/blog/feed/');
+        
+        $xml = simplexml_import_dom($rss);
+        
 	$feed = array();
+        $slashNS = "http://purl.org/rss/1.0/modules/slash/";
+
 	foreach ($rss->getElementsByTagName('item') as $node) {
 		$item = array ( 
 			'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
@@ -23,16 +28,17 @@ and open the template in the editor.
 			'date' => $node->getElementsByTagName('pubDate')->item(0)->nodeValue,
 			);
 		array_push($feed, $item);
-	}
+	}    
 	$limit = 3;
 	for($x=0;$x<$limit;$x++) {
 		$title = str_replace(' & ', ' &amp; ', $feed[$x]['title']);
 		$link = $feed[$x]['link'];
 		$description = $feed[$x]['desc'];
+                $cat = $feed[$x]['cat'];
 		$date = date('l F d, Y', strtotime($feed[$x]['date']));
-		echo '<p><strong><a href="'.$link.'" target="_blank" title="'.$title.'">'.$title.'</a></strong><br />';
-		echo '<small><em>Postado em '.$date.'</em></small></p>';
-		echo '<p>'.$description.'</p>';
+		echo $link;
+		echo 'Postado em '.$date.'';
+		echo ''.$description.'';
 	}
         ?>
     </body>
