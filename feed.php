@@ -32,9 +32,13 @@ function getRSS($url){
 		$description = $feed[$x]['desc'];
                 $cat = $feed[$x]['cat'];
 		$date = date('l F d, Y', strtotime($feed[$x]['date']));
-		echo $link;
-		echo 'Postado em '.$date.'';
-		echo ''.$description.'';
+		
+                echo '<h3>'.$title.'</h3>';
+                echo $link;
+		echo '<span> Postado em '.$date.'</span>';
+		echo '<p>'.$description.'</p>';
+                
+                echo"<br>";
 	}
         
         
